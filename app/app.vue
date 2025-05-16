@@ -22,7 +22,6 @@ const guess = ref<string>("");
 const state = useLocalStorage("used-words", []);
 
 onMounted(() => {
-  state.value = usedWords.value;
   correctLetters.value = new Set(word.value?.split(""));
   fetchWord();
 });
