@@ -12,14 +12,10 @@ const {
   gameState,
   correct,
   correctLetters,
-  usedWords,
 } = useHangman();
 
 const letter = ref<string>("");
 const guess = ref<string>("");
-
-// Load persisted state
-const state = useLocalStorage("used-words", []);
 
 onMounted(() => {
   correctLetters.value = new Set(word.value?.split(""));
@@ -56,7 +52,7 @@ const overlay = useOverlay();
 
 const modal = overlay.create(GameOverModal, {
   props: {
-    message: "Whomp Whomp! The word was ",
+    message: "",
   },
 });
 
@@ -111,14 +107,6 @@ useHead({
         <div class="hint mb-6">
           <p class="text-lg font-semibold">Hint:</p>
           <p>{{ hint }}</p>
-        </div>
-
-        <div v-if="gameState === 'won'" class="text-green-600 text-xl">
-          🎉 Congrats! The word was <strong>{{ word }}</strong
-          >!
-          <button @click="handlePlayAgain" class="ml-2 underline">
-            Play Again
-          </button>
         </div>
 
         <div class="word my-6">

@@ -5,7 +5,7 @@ import { resetGame as resetState, evaluateGameState } from "./gameState";
 
 export const useHangman = () => {
   // Persistent state
-  const usedWords = useState<string[]>("usedWords", () => []);
+  const usedWords = useLocalStorage<string[]>("used-words", []);
   const word = useState<string | undefined>("word", () => undefined);
   const hint = useState<string | undefined>("hint", () => undefined);
 
@@ -37,6 +37,7 @@ export const useHangman = () => {
     word.value = selected.word.toLowerCase();
     hint.value = selected.definition;
     correctLetters.value = new Set(word.value.split(""));
+    usedWords.value.push(word.value);
   };
 
   // Guess one letter
