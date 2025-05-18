@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { word, resetGame } = useHangman();
+const { resetGame } = useHangman();
 
 defineProps<{
   message: string;

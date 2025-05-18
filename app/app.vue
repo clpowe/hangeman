@@ -10,7 +10,7 @@ const {
   guessLetter,
   guesses,
   gameState,
-  correct,
+  score,
   correctLetters,
 } = useHangman();
 
@@ -97,7 +97,7 @@ useHead({
       <UContainer>
         <div class="mb-4">
           <p>
-            Score: <strong>{{ correct }}</strong>
+            Score: <strong>{{ score }}</strong>
           </p>
           <p>
             Remaining Guesses: <strong>{{ remainingGuesses }}</strong>

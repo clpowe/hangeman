@@ -57,7 +57,6 @@ export const useHangman = () => {
     if (!word.value) return;
     if (guess.toLowerCase() === word.value) {
       gameState.value = "won";
-      score.value++;
     } else {
       errors.value++;
     }
@@ -70,7 +69,7 @@ export const useHangman = () => {
 
   // Evaluate win/loss
   watch([correct, errors], () => {
-    evaluateGameState(correct, errors, correctLetters, gameState);
+    evaluateGameState(score, correct, errors, correctLetters, gameState);
   });
 
   return {
