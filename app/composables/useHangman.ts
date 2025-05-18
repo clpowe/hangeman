@@ -41,7 +41,7 @@ export const useHangman = () => {
   };
 
   // Guess one letter
-  const guessLetter = (input: string) => {
+  const guessLetter = async (input: string) => {
     if (!word.value) return;
     const { updatedGuesses, isCorrect } = processGuess(
       word.value,
@@ -49,7 +49,13 @@ export const useHangman = () => {
       input,
     );
     guesses.value = updatedGuesses;
-    isCorrect ? correct.value++ : errors.value++;
+
+    if (isCorrect) {
+      correct.value++;
+    } else {
+      errors.value++;
+    }
+    evaluateGameState(score, correct, errors, correctLetters, gameState);
   };
 
   // Guess entire word
@@ -60,6 +66,8 @@ export const useHangman = () => {
     } else {
       errors.value++;
     }
+
+    evaluateGameState(score, correct, errors, correctLetters, gameState);
   };
 
   // Reset full game
@@ -68,9 +76,6 @@ export const useHangman = () => {
   };
 
   // Evaluate win/loss
-  watch([correct, errors], () => {
-    evaluateGameState(score, correct, errors, correctLetters, gameState);
-  });
 
   return {
     fetchWord,

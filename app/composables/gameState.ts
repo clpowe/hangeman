@@ -22,7 +22,9 @@ export function evaluateGameState(
   gameState: Ref<"playing" | "won" | "lost">,
 ) {
   if (correct.value === correctLetters.value.size) {
+    console.log("correct", score.value);
     score.value++;
+    console.log("After", score.value);
     gameState.value = "won";
   }
   if (errors.value >= 6) {
