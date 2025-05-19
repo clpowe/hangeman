@@ -19,7 +19,7 @@ function handlePlayAgain() {
 
       <NuxtImg v-if="gameState == 'lost'" src="/loss.webp" />
 
-      <NuxtImg v-else src="/loss.webp" alt="loss" />
+      <NuxtImg v-else src="/win.webp" alt="loss" />
     </template>
 
     <template #footer>
