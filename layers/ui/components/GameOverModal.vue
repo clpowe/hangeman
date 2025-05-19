@@ -14,15 +14,11 @@ function handlePlayAgain() {
 </script>
 
 <template>
-  <UModal
-    :dismissible="false"
-    :close="{ onClick: () => emit('close', false) }"
-    title="Game over"
-  >
+  <UModal :dismissible="false" :close="{ onClick: () => emit('close', false) }" title="Game over">
     <template #body> {{ message }}|</template>
 
     <template #footer>
-      <UButton @click="handlePlayAgain()">Play Again</UButton> </template
-    >:
+      <UButton @click="handlePlayAgain">Play Again</UButton>
+    </template>:
   </UModal>
 </template>

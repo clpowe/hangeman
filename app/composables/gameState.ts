@@ -1,6 +1,6 @@
 // composables/gameState.ts
 
-export function resetGame(
+export function resetState(
   guesses: Ref<string[]>,
   correct: Ref<number>,
   errors: Ref<number>,

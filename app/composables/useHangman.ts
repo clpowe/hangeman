@@ -1,7 +1,4 @@
 import data from "~/assets/words.json";
-import { selectWord } from "./wordManager";
-import { processGuess } from "./guessLogic";
-import { resetGame as resetState, evaluateGameState } from "./gameState";
 
 export const useHangman = () => {
   // Persistent state
