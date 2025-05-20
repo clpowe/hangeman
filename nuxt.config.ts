@@ -23,7 +23,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/scripts',
     '@vueuse/nuxt',
-    "@nuxt/ui-pro"
+    "@nuxt/ui-pro",
+    'v-gsap-nuxt'
   ],
 
   css: ['~/assets/css/main.css']

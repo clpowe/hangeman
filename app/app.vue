@@ -37,16 +37,13 @@ function handleGuessWord() {
 }
 
 // Replay the game
-function handlePlayAgain() {
-  letter.value = "";
-  guess.value = "";
-  fetchWord();
-}
+//function handlePlayAgain() {
+//  letter.value = "";
+//  guess.value = "";
+//  fetchWord();
+//}
 
-// Reveal the word
-function showWord() {
-  gameState.value = "lost";
-}
+
 
 const overlay = useOverlay();
 
@@ -56,6 +53,11 @@ const modal = overlay.create(GameOverModal, {
   },
 });
 
+// Reveal the word
+function showWord() {
+  gameState.value = "lost";
+}
+
 watch(gameState, () => {
   if (gameState.value === "won") {
     modal.open({ message: "You are so smart" });
@@ -64,6 +66,9 @@ watch(gameState, () => {
     modal.open({ message: `Whomp Whomp! The word was ${word.value}` });
   }
 });
+
+const remainingGuessesEl = templateRef('remainingGuessesEl')
+const scoreEl = templateRef('scoreEl')
 
 useHead({
   title: "Hangman",
@@ -95,12 +100,15 @@ useHead({
 
     <UMain>
       <UContainer>
-        <div class="mb-4">
-          <p>
-            Score: <strong>{{ score }}</strong>
+        <div class="mb-4 flex gap-4">
+          <p class="text-2xl font-semibold">
+            Score:
+            <AnimatedNumber :value="score" class="text-success  font-bold" />
+
           </p>
-          <p>
-            Remaining Guesses: <strong>{{ remainingGuesses }}</strong>
+          <p class="text-2xl font-semibold">
+            Remaining Guesses:
+            <AnimatedNumber :value="remainingGuesses" class="text-error  font-bold" />
           </p>
         </div>
 
@@ -110,33 +118,24 @@ useHead({
         </div>
 
         <div class="word my-6">
-          <div class="letter" v-for="(char, index) in word" :key="index">
+          <div v-for="(char, index) in word" :key="index" class="letter">
             {{ guesses.includes(char) ? char : "" }}
           </div>
         </div>
 
-        <form @submit.prevent="handleGuessWord" class="mb-4">
-          <UInput
-            icon="i-lucide-search"
-            size="xl"
-            placeholder="Guess full word..."
-            v-model.trim="guess"
-          />
+        <form class="mb-4" @submit.prevent="handleGuessWord">
+          <UInput v-model.trim="guess" icon="i-lucide-search" size="xl" placeholder="Guess full word..." />
           <button type="submit" class="mt-2">Guess Word</button>
         </form>
 
         <div class="guess flex items-center gap-2 mb-4">
-          <UInput
-            maxlength="1"
-            v-model="letter"
-            @keydown.enter="handleGuess"
-            placeholder="Guess letter..."
-          />
+          <UInput v-model="letter" maxlength="1" placeholder="Guess letter..." @keydown.enter="handleGuess" />
           <button @click="handleGuess">Guess</button>
         </div>
 
         <Keyboard />
-        <button @click="showWord" class="mt-4 underline">Reveal Word</button>
+
+        <UButton class="mt-4 underline" @click="showWord">Reveal Word</UButton>
       </UContainer>
     </UMain>
   </UApp>
@@ -149,6 +148,7 @@ useHead({
   justify-content: center;
   margin-bottom: 2rem;
 }
+
 .letter {
   border-bottom: 1px solid var(--stroke-strong);
   width: 1.5rem;
